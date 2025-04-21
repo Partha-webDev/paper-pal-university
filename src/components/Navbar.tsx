@@ -1,11 +1,13 @@
 
 import { useState } from "react";
 import { Menu, Home, Info, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
+// Update navLinks to use /contact instead of #contact
 const navLinks = [
-  { name: "Home", href: "#home", icon: Home },
+  { name: "Home", href: "/", icon: Home },
   { name: "About", href: "#about", icon: Info },
-  { name: "Contact", href: "#contact", icon: Phone },
+  { name: "Contact", href: "/contact", icon: Phone },
 ];
 
 const Logo = () => (
@@ -20,19 +22,28 @@ export default function Navbar() {
   return (
     <nav className="w-full sticky top-0 z-30 bg-navbar shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between py-2 px-4">
-        <a href="#home" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <Logo />
-        </a>
+        </Link>
         {/* Desktop Nav */}
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map(link => (
             <li key={link.name}>
-              <a
-                href={link.href}
-                className="text-text-muted hover:text-accent px-3 py-1 rounded-lg transition-colors duration-100 font-medium hover:shadow-accent"
-              >
-                {link.name}
-              </a>
+              {link.href.startsWith("/") ? (
+                <Link
+                  to={link.href}
+                  className="text-text-muted hover:text-accent px-3 py-1 rounded-lg transition-colors duration-100 font-medium hover:shadow-accent"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="text-text-muted hover:text-accent px-3 py-1 rounded-lg transition-colors duration-100 font-medium hover:shadow-accent"
+                >
+                  {link.name}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -54,13 +65,23 @@ export default function Navbar() {
         <ul className="flex flex-col gap-2">
           {navLinks.map(link => (
             <li key={link.name}>
-              <a
-                href={link.href}
-                className="block w-full text-text-muted hover:text-accent px-3 py-2 rounded-lg transition-colors duration-150 font-medium"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.name}
-              </a>
+              {link.href.startsWith("/") ? (
+                <Link
+                  to={link.href}
+                  className="block w-full text-text-muted hover:text-accent px-3 py-2 rounded-lg transition-colors duration-150 font-medium"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  className="block w-full text-text-muted hover:text-accent px-3 py-2 rounded-lg transition-colors duration-150 font-medium"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.name}
+                </a>
+              )}
             </li>
           ))}
         </ul>
