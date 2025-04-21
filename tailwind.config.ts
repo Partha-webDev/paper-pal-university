@@ -20,6 +20,9 @@ export default {
       screens: { '2xl': '1400px' }
     },
     extend: {
+      scale: {
+        '102': '1.02',
+      },
       colors: {
         background: "#1a1a1a",
         accent: {
